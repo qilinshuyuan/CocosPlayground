@@ -1,0 +1,18 @@
+{
+  "officialTabs": {
+    "official": "official",
+    "unOfficial": "unOfficial"
+  },
+  "gameModeTabs": {
+    "twoD": "2D",
+    "threeD": "3D"
+  },
+  "search": {
+    "placeholder": "Please enter keywords for search"
+  },
+  "handleBtns": {
+    "qrcode": "QR code",
+    "viewCode": "View code",
+    "downloadCode": "Download code"
+  }
+}
