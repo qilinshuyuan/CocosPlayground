@@ -1,0 +1,18 @@
+{
+  "officialTabs": {
+    "official": "官方",
+    "unOfficial": "非官方"
+  },
+  "gameModeTabs": {
+    "twoD": "2D",
+    "threeD": "3D"
+  },
+  "search": {
+    "placeholder": "请输入关键字搜索"
+  },
+  "handleBtns": {
+    "qrcode": "二维码",
+    "viewCode": "查看代码",
+    "downloadCode": "下载代码"
+  }
+}
