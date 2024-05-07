@@ -1,6 +1,6 @@
 # CocosPlayground
 ## What is it?
-Cocos Playground is a website to show high-quality examples  of Cocos Creator online, make it easy to learn Cocos Creator.
+Cocos Playground is a website to show high-quality examples  of Cocos Creator online, makes people easy to learn Cocos Creator.
 
 The online version will come soon.
 
