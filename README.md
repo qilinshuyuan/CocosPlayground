@@ -28,4 +28,4 @@ Download the source code from this repository. Put it anywhere on your local dev
 
 This project is still in progress, welcome to contribute.
 
-To simplfy the development of this project, we use OpenTGX to handle the UI, Cameras, Joysticks, etc. If you want to know more about OpenTGX, please visit [OpenTGX](https://github.com/MrKylinGithub/OpenTGX).
+To simplify the development of this project, we use OpenTGX to handle the UI, Cameras, Joysticks, etc. If you want to know more about OpenTGX, please visit [OpenTGX](https://github.com/MrKylinGithub/OpenTGX).
