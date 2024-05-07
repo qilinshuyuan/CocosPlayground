@@ -22,7 +22,8 @@ Download the source code from this repository. Put it anywhere on your local dev
 4. Locate to the directory of the source code.
 5. Select the 'CocosCreatorExamples' folder.
 6. Confirm to start importing.
-7. Choose any scene to run.
+7. Choose the 'start' scene to run.
+8. Give the required parameters to access the corresponding example like :http://localhost:7456/?s=scene-boundle-loading&b=examples_bundles, where `s` is the scene name and `b` is the bundle name.
 
 ![](./folders.png)
 
