@@ -1,6 +1,6 @@
 # CocosPlayground
 ## What is it?
-Cocos Playground is a website to show high-quality examples  of Cocos Creator online, make it easy to learn Cocos Creator.
+Cocos Playground is a website to show high-quality examples  of Cocos Creator online, it makes people easy to learn Cocos Creator.
 
 The online version will come soon.
 
@@ -16,7 +16,7 @@ To build it on your local device, you need to download Cocos Creator first.
 Download the source code from this repository. Put it anywhere on your local device.
 
 ### Open in Cocos Creator
-1. Launch the Cocos Dashboard 
+1. Launch the Cocos Dashboard.
 2. Install Cocos Creator 3.8.2
 3. Click the 'Import' button.
 4. Locate to the directory of the source code.
