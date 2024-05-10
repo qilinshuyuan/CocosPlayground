@@ -55,7 +55,10 @@
           @click="handleClick"
           style="border: 0"
         >
-          <a-sub-menu key="sub1">
+          <template v-for="item in menuList" :key="item.id">
+            <RecursiveMenu :item="item" />
+          </template>
+          <!-- <a-sub-menu key="sub1">
             <template #title>
               <div style="position: relative">
                 <span>subnav 1</span>
@@ -73,7 +76,7 @@
           </a-menu-item>
           <a-menu-item key="4">
             <span class="nav-text">nav 4</span>
-          </a-menu-item>
+          </a-menu-item> -->
         </a-menu>
       </a-layout-sider>
       <a-layout>
@@ -115,8 +118,51 @@
 import type { MenuProps, RadioChangeEvent } from 'ant-design-vue'
 import { i18n } from '@/locales/setupI18n'
 import { GameMode, OfficialType } from './enums'
+import RecursiveMenu from '@/components/RecursiveMenu.vue'
+import type { Menu } from '@/components/interface'
 const t = i18n.global.t as (key: string) => string
-
+const menuList: Menu[] = [
+  {
+    id: 0,
+    type: 'lighting',
+    zh_label: '光照',
+    en_label: 'Lighting',
+    children: [
+      {
+        officialType: OfficialType.OFFICIAL,
+        gameMode: GameMode.TWO_D,
+        type: 'lighting',
+        id: 1,
+        zh_label: '经典模式',
+        en_label: 'Classic Mode'
+      }
+    ]
+  },
+  {
+    type: 'Camera',
+    id: 10,
+    zh_label: '相机',
+    en_label: 'camera',
+    children: [
+      {
+        officialType: OfficialType.OFFICIAL,
+        gameMode: GameMode.TWO_D,
+        type: 'Camera',
+        id: 3,
+        zh_label: '速度挑战',
+        en_label: 'Speed Challenge'
+      },
+      {
+        officialType: OfficialType.OFFICIAL,
+        gameMode: GameMode.TWO_D,
+        type: 'Camera',
+        id: 5,
+        zh_label: '生存模式',
+        en_label: 'Survival Mode'
+      }
+    ]
+  }
+]
 /**
  *  官方类型tabs
  */
