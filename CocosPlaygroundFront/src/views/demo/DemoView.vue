@@ -54,35 +54,20 @@
           mode="inline"
           @click="handleClick"
           style="border: 0"
+          v-if="menuList.length"
         >
           <template v-for="item in menuList" :key="item.id">
             <RecursiveMenu :item="item" />
           </template>
-          <!-- <a-sub-menu key="sub1">
-            <template #title>
-              <div style="position: relative">
-                <span>subnav 1</span>
-              </div>
-            </template>
-            <a-menu-item key="1">
-              <span class="nav-text">nav 1</span>
-            </a-menu-item>
-            <a-menu-item key="2">
-              <span class="nav-text">nav 2</span>
-            </a-menu-item>
-          </a-sub-menu>
-          <a-menu-item key="3">
-            <span class="nav-text">nav 3</span>
-          </a-menu-item>
-          <a-menu-item key="4">
-            <span class="nav-text">nav 4</span>
-          </a-menu-item> -->
         </a-menu>
+        <div class="empty" v-else>
+          <a-empty />
+        </div>
       </a-layout-sider>
       <a-layout>
         <a-layout-content :style="{ margin: '24px 16px 0' }">
           <a-space direction="vertical" style="width: 100%">
-            <a-card title="Inner card title">
+            <a-card :title="dataDetail.title">
               <template #extra>
                 <a-space style="width: 100%">
                   <a-button>
@@ -104,9 +89,10 @@
             </a-card>
             <!-- <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">content</div> -->
             <a-card>
+              <div>{{ dataDetail.detail }}</div>
+              <!-- <p>巴拉巴拉巴拉</p>
               <p>巴拉巴拉巴拉</p>
-              <p>巴拉巴拉巴拉</p>
-              <p>巴拉巴拉巴拉</p>
+              <p>巴拉巴拉巴拉</p> -->
             </a-card>
           </a-space>
         </a-layout-content>
@@ -120,49 +106,33 @@ import { i18n } from '@/locales/setupI18n'
 import { GameMode, OfficialType } from './enums'
 import RecursiveMenu from '@/components/RecursiveMenu.vue'
 import type { Menu } from '@/components/interface'
+import { getDataById, getMunusByType } from './controller/menuHandle'
+
+interface DataDetail {
+  title: string | null
+  demoLink: string | null
+  codeLink: string | null
+  qrLink: string | null
+  detail: string | null
+}
+
 const t = i18n.global.t as (key: string) => string
-const menuList: Menu[] = [
-  {
-    id: 0,
-    type: 'lighting',
-    zh_label: '光照',
-    en_label: 'Lighting',
-    children: [
-      {
-        officialType: OfficialType.OFFICIAL,
-        gameMode: GameMode.TWO_D,
-        type: 'lighting',
-        id: 1,
-        zh_label: '经典模式',
-        en_label: 'Classic Mode'
-      }
-    ]
-  },
-  {
-    type: 'Camera',
-    id: 10,
-    zh_label: '相机',
-    en_label: 'camera',
-    children: [
-      {
-        officialType: OfficialType.OFFICIAL,
-        gameMode: GameMode.TWO_D,
-        type: 'Camera',
-        id: 3,
-        zh_label: '速度挑战',
-        en_label: 'Speed Challenge'
-      },
-      {
-        officialType: OfficialType.OFFICIAL,
-        gameMode: GameMode.TWO_D,
-        type: 'Camera',
-        id: 5,
-        zh_label: '生存模式',
-        en_label: 'Survival Mode'
-      }
-    ]
-  }
-]
+const menuList = ref<Menu[]>([])
+
+const dataDetail:DataDetail = reactive({
+  title: null,
+  demoLink: null,
+  codeLink: null,
+  qrLink: null,
+  detail: null
+})
+const reset = () => {
+  dataDetail.title = null
+  dataDetail.demoLink = null
+  dataDetail.codeLink = null
+  dataDetail.qrLink = null
+  dataDetail.detail = null
+}
 /**
  *  官方类型tabs
  */
@@ -209,14 +179,18 @@ const gameModeKey = ref<GameMode>(GameMode.TWO_D)
 function onOfficialChange(e: RadioChangeEvent) {
   // const value: OfficialType = e.target.value
   gameModeKey.value = GameMode.TWO_D
+  reset()
   searchVal.value = ''
+  getList()
 }
 /**
  *  游戏模式切换
  * @param e
  */
 function gameModalChange(e: RadioChangeEvent) {
+  reset()
   searchVal.value = ''
+  getList()
 }
 /**
  * 选中的key
@@ -230,7 +204,7 @@ const openKeys = ref<string[]>([])
  * 搜索
  * @param searchValue
  */
-const onSearch = (searchValue: string) => {
+const onSearch = (searchValue?: string) => {
   console.log('use value', searchValue)
   console.log('or use this.value', searchVal.value)
 }
@@ -238,8 +212,23 @@ const onSearch = (searchValue: string) => {
  * 点击事件
  */
 const handleClick: MenuProps['onClick'] = (e) => {
-  console.log('click', e)
+  const detail = getDataById(e.key as string)
+  if (!detail) return
+  dataDetail.title = detail.title
+  dataDetail.demoLink = detail.demoLink
+  dataDetail.codeLink = detail.codeLink
+  dataDetail.qrLink = detail.qrLink
+  dataDetail.detail = detail.detail
 }
+function getList() {
+  menuList.value = getMunusByType({
+    officialType: officialKey.value,
+    gameMode: gameModeKey.value
+  }) as Menu[]
+}
+onMounted(() => {
+  getList()
+})
 </script>
 <style lang="less" scoped>
 ::v-deep(.ant-menu-item, .ant-menu) {
@@ -264,5 +253,11 @@ const handleClick: MenuProps['onClick'] = (e) => {
 
 [data-theme='dark'] .site-layout-sub-header-background {
   background: #141414;
+}
+.empty {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

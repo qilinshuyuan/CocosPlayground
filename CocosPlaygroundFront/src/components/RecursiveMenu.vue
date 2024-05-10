@@ -1,11 +1,13 @@
 <template>
-  <a-sub-menu v-if="menuHasChildren(item)" :key="`${item.id}`">
-    <template #title>{{ item.zh_label }}</template>
+  <a-sub-menu v-if="menuHasChildren(item)" :key="`${item.type}`">
+    <template #title>{{ item.typeLabel }}</template>
     <template v-for="childrenItem in item.children || []" :key="childrenItem.id">
       <recursive-menu v-bind="$props" :item="childrenItem" />
     </template>
   </a-sub-menu>
-  <a-menu-item v-if="!menuHasChildren(item)" :key="item.id">{{ item.zh_label }}</a-menu-item>
+  <a-menu-item v-if="!menuHasChildren(item)" :key="item.id">{{
+    item.label
+  }}</a-menu-item>
 </template>
 
 <script lang="ts" setup name="RecursiveMenu">
@@ -27,4 +29,6 @@ function menuHasChildren(menuTreeItem: Menu): boolean {
     menuTreeItem.children.length > 0
   )
 }
+
+
 </script>

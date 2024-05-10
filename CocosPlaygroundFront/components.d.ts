@@ -10,6 +10,7 @@ declare module 'vue' {
     AButton: typeof import('ant-design-vue/es')['Button']
     ACard: typeof import('ant-design-vue/es')['Card']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
+    AEmpty: typeof import('ant-design-vue/es')['Empty']
     AInputSearch: typeof import('ant-design-vue/es')['InputSearch']
     ALayout: typeof import('ant-design-vue/es')['Layout']
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
