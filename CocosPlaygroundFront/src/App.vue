@@ -6,7 +6,8 @@ import { RouterLink, RouterView } from 'vue-router'
   <a-config-provider
     :theme="{
       token: {
-        borderRadius: 4
+        borderRadius: 4,
+        colorPrimary:'#4a7dff'
       }
     }"
   >
