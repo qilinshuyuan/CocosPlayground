@@ -35,7 +35,7 @@ export function getMunusByType({ officialType, gameMode, lang = 'zh' }: MenuData
             if (menu.children) menu.children.push(menuItem)
         } else {
             list.push({
-                typeLabel: item.typeLabel_zh,//typeLabel_en
+                label: item.typeLabel_zh,//typeLabel_en
                 type: item.type,
                 children: [
                     menuItem
