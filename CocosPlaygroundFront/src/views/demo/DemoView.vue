@@ -67,7 +67,7 @@
       <a-layout>
         <a-layout-content :style="{ margin: '24px 10px 0' }">
           <a-space direction="vertical" style="width: 100%" v-if="dataDetail">
-            <a-card :title="dataDetail.title">
+            <a-card :title="dataDetail.label">
               <template #extra>
                 <a-space style="width: 100%">
                   <a-tooltip placement="bottom" color="white">
@@ -100,7 +100,7 @@
             </a-card>
           </a-space>
           <div class="empty" v-else>
-            <a-empty description="请点击左侧选择" />
+            <a-empty :description="t('demo.emptyInfo.noSelect')" />
           </div>
         </a-layout-content>
       </a-layout>
@@ -119,13 +119,19 @@ import { getDataById, getMunusByType } from './controller/menuHandle'
 import { downloadFile, deepFilter } from '@/utils/tools'
 
 interface DataDetail {
-  title: string 
-  demoLink: string 
-  codeLink: string 
-  qrLink: string 
-  detail: string 
+  label: string
+  demoLink: string
+  codeLink: string
+  qrLink: string
+  detail: string
 }
-
+const lang = computed(() => {
+  if ((i18n.global.locale as any).value === 'zh_CN') {
+    return 'zh'
+  } else {
+    return 'en'
+  }
+})
 /**
  * 国际化
  */
@@ -232,7 +238,7 @@ const onSearch = (searchValue?: string) => {
  * 点击事件
  */
 const handleClick: MenuProps['onClick'] = (e) => {
-  const detail = getDataById(e.key as string)
+  const detail = getDataById(e.key as string, lang.value)
   if (!detail) return
   dataDetail.value = detail
 }
@@ -242,7 +248,8 @@ const handleClick: MenuProps['onClick'] = (e) => {
 function getList() {
   menuList.value = getMunusByType({
     officialType: officialKey.value,
-    gameMode: gameModeKey.value
+    gameMode: gameModeKey.value,
+    lang: lang.value
   }) as Menu[]
   menuShowList.value = menuList.value
 }
@@ -251,13 +258,12 @@ function getList() {
  * 打开代码弹窗
  */
 function openCodeModal() {
-  console.log(codeSeeModalRef.value)
 
   if (dataDetail.value?.codeLink && codeSeeModalRef.value) {
     codeSeeModalRef?.value.openModal(dataDetail.value?.codeLink)
   } else {
     Modal.warning({
-      title: '暂无代码查看'
+      title: t('demo.emptyInfo.noCode')
       // content: 'some messages...some messages...'
     })
   }

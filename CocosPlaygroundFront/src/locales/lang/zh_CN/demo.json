@@ -14,5 +14,9 @@
     "qrcode": "二维码",
     "viewCode": "查看代码",
     "downloadCode": "下载代码"
+  },
+  "emptyInfo":{
+    "noCode": "暂无代码查看",
+    "noSelect": "请点击左侧选择"
   }
 }
