@@ -28,7 +28,8 @@ export function getDataById(id: string, lang = 'zh') {
         demoLink: menuDetail.demoLink,
         codeLink: menuDetail.codeLink,
         qrLink: menuDetail.qrLink,
-        detail: menuDetail['detail_' + lang as keyof typeof menuDetail]
+        detail: menuDetail['detail_' + lang as keyof typeof menuDetail],
+        downloadLink: menuDetail.downloadLink,
     }
     return menuItem
 }
