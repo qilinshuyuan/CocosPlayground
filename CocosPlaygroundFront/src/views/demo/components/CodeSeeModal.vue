@@ -20,7 +20,6 @@ function getCodeByLink(link: string) {
     })
 }
 const handleOk = (e: MouseEvent) => {
-  console.log(e)
   open.value = false
 }
 const openModal = (link: string) => {
