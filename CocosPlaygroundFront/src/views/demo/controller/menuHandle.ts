@@ -14,10 +14,31 @@ interface MenuData {
     gameMode: GameMode
     lang?: 'zh' | 'en'
 }
-export function getDataById(id: string) {
-    return menuDatas.find((item) => item.id === id)
+/**
+ * 根据id获取数据
+ * @param id 
+ * @returns 
+ */
+export function getDataById(id: string, lang = 'zh') {
+    const menuDetail = menuDatas.find((item) => item.id === id)
+    if (!menuDetail) return
+    // const lang = 'zh' // Replace with the desired value for lang
+    const menuItem = {
+        label: menuDetail['label_' + lang as keyof typeof menuDetail],
+        demoLink: menuDetail.demoLink,
+        codeLink: menuDetail.codeLink,
+        qrLink: menuDetail.qrLink,
+        detail: menuDetail['detail_' + lang as keyof typeof menuDetail],
+        downloadLink: menuDetail.downloadLink,
+    }
+    return menuItem
 }
 
+/**
+ * 根据类型获取菜单
+ * @param param0 
+ * @returns 
+ */
 export function getMunusByType({ officialType, gameMode, lang = 'zh' }: MenuData) {
     const menus = menuDatas.filter(
         (item) => item.officialType === officialType && item.gameMode === gameMode
@@ -35,7 +56,7 @@ export function getMunusByType({ officialType, gameMode, lang = 'zh' }: MenuData
             if (menu.children) menu.children.push(menuItem)
         } else {
             list.push({
-                label: item.typeLabel_zh,//typeLabel_en
+                label: item['typeLabel_' + lang as keyof typeof item],//typeLabel_en
                 type: item.type,
                 children: [
                     menuItem

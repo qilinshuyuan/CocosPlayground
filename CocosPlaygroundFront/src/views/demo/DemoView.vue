@@ -2,12 +2,29 @@
   <div class="demo">
     <a-layout style="height: 100%">
       <a-layout-sider
+        class="sider-layout"
         breakpoint="lg"
         collapsed-width="0"
         style="padding: 20px 10px; background: #fff"
       >
         <div>
           <a-space direction="vertical" style="width: 100%">
+            <div>
+              <div class="lang-select">
+                <span>{{ t('lang.langSelect') }}：</span>
+                <a-select
+                  class="flex-1"
+                  ref="select"
+                  v-model:value="langVal"
+                  @change="handleChange"
+                >
+                  <a-select-option :value="LocaleType.zh_CN">{{ t('lang.zh_CN') }}</a-select-option>
+                  <a-select-option :value="LocaleType.en">{{ t('lang.en_US') }}</a-select-option>
+                </a-select>
+              </div>
+              <a-divider style="margin: 12px 0" />
+            </div>
+
             <!-- 官方/非官方 -->
             <a-radio-group
               v-model:value="officialKey"
@@ -67,7 +84,7 @@
       <a-layout>
         <a-layout-content :style="{ margin: '24px 10px 0' }">
           <a-space direction="vertical" style="width: 100%" v-if="dataDetail">
-            <a-card :title="dataDetail.title">
+            <a-card :title="dataDetail.label">
               <template #extra>
                 <a-space style="width: 100%">
                   <a-tooltip placement="bottom" color="white">
@@ -80,7 +97,7 @@
                     >
                   </a-tooltip>
 
-                  <a-button size="small" @click="openCodeModal">
+                  <a-button size="small" @click="seeCode">
                     <template #icon> <eye-outlined /> </template>
                     {{ t('demo.handleBtns.viewCode') }}</a-button
                   >
@@ -100,7 +117,7 @@
             </a-card>
           </a-space>
           <div class="empty" v-else>
-            <a-empty description="请点击左侧选择" />
+            <a-empty :description="t('demo.emptyInfo.noSelect')" />
           </div>
         </a-layout-content>
       </a-layout>
@@ -117,15 +134,29 @@ import type { Menu } from '@/components/interface'
 import CodeSeeModal from './components/CodeSeeModal.vue'
 import { getDataById, getMunusByType } from './controller/menuHandle'
 import { downloadFile, deepFilter } from '@/utils/tools'
+import { LocaleType } from '@/locales/helper'
 
 interface DataDetail {
-  title: string 
-  demoLink: string 
-  codeLink: string 
-  qrLink: string 
-  detail: string 
+  label: string
+  demoLink: string
+  codeLink: string
+  qrLink: string
+  detail: string
+  downloadLink: string
 }
 
+const langVal = ref(localStorage.getItem('locale') || LocaleType.zh_CN)
+const handleChange = (val: LocaleType) => {
+  localStorage.setItem('locale', val)
+  location.reload()
+}
+const lang = computed(() => {
+  if ((i18n.global.locale as any).value === 'zh_CN') {
+    return 'zh'
+  } else {
+    return 'en'
+  }
+})
 /**
  * 国际化
  */
@@ -232,7 +263,7 @@ const onSearch = (searchValue?: string) => {
  * 点击事件
  */
 const handleClick: MenuProps['onClick'] = (e) => {
-  const detail = getDataById(e.key as string)
+  const detail = getDataById(e.key as string, lang.value)
   if (!detail) return
   dataDetail.value = detail
 }
@@ -242,35 +273,48 @@ const handleClick: MenuProps['onClick'] = (e) => {
 function getList() {
   menuList.value = getMunusByType({
     officialType: officialKey.value,
-    gameMode: gameModeKey.value
+    gameMode: gameModeKey.value,
+    lang: lang.value
   }) as Menu[]
   menuShowList.value = menuList.value
 }
 
+//#region
 /**
  * 打开代码弹窗
  */
-function openCodeModal() {
-  console.log(codeSeeModalRef.value)
+// function openCodeModal() {
+//   if (dataDetail.value?.codeLink && codeSeeModalRef.value) {
+//     codeSeeModalRef?.value.openModal(dataDetail.value?.codeLink)
+//   } else {
+//     Modal.warning({
+//       title: t('demo.emptyInfo.noCode')
+//       // content: 'some messages...some messages...'
+//     })
+//   }
+// }
+// /**
+//  * 下载代码
+//  */
+// function downloadCode() {
+//   if (dataDetail.value?.codeLink) {
+//     const fileName = new Date().getTime() + '.js'
+//     downloadFile(dataDetail.value?.codeLink, fileName)
+//   }
+// }
+//#endregion
 
-  if (dataDetail.value?.codeLink && codeSeeModalRef.value) {
-    codeSeeModalRef?.value.openModal(dataDetail.value?.codeLink)
-  } else {
-    Modal.warning({
-      title: '暂无代码查看'
-      // content: 'some messages...some messages...'
-    })
-  }
+/**
+ * 查看代码
+ */
+function seeCode() {
+  window.open(dataDetail.value?.codeLink)
 }
 /**
  * 下载代码
- 
  */
 function downloadCode() {
-  if (dataDetail.value?.codeLink) {
-    const fileName = new Date().getTime() + '.js'
-    downloadFile(dataDetail.value?.codeLink, fileName)
-  }
+  window.open(dataDetail.value?.downloadLink)
 }
 onMounted(() => {
   getList()
@@ -305,5 +349,23 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
+}
+.sider-layout {
+  width: 250px !important;
+  max-width: 250px !important;
+  flex: 0 0 250px !important;
+}
+.lang-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-1 {
+  flex: 1;
+}
+::v-deep(.ant-layout-sider-children) {
+  display: flex;
+  flex-direction: column;
 }
 </style>

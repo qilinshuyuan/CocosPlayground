@@ -8,11 +8,12 @@
     "type": "lighting",
     "typeLabel_zh": "光照",
     "typeLabel_en": "Lighting",
-    "title": "Mystery Island Puzzle",
     "demoLink": "https://web.carolsail.asia/pro_finger_magic",
     "codeLink": "https://aliyuncdn.antdv.com/common/docsearch.min_2.6.3.js",
     "qrLink": "https://example.com/demo1",
-    "detail": "吧啦吧啦吧啦"
+    "detail_zh": "吧啦吧啦吧啦",
+    "downloadLink": "https://example.com/demo1",
+    "detail_en": "balabalabala"
   },
   {
     "officialType": "UNOFFICIAL",
@@ -23,11 +24,12 @@
     "type": "lighting",
     "typeLabel_zh": "光照",
     "typeLabel_en": "Lighting",
-    "title": "Zombie Survival Challenge",
     "demoLink": "http://yinsi.chengzibuluo.com/yinsi/web-mobile/index.html",
     "codeLink": "https://aliyuncdn.antdv.com/common/docsearch.min_2.6.3.js",
     "qrLink": "https://example.com/demo1",
-    "detail": "吧啦吧啦吧啦"
+    "downloadLink": "https://example.com/demo1",
+    "detail_zh": "吧啦吧啦吧啦",
+    "detail_en": "balabalabala"
   },
   {
     "officialType": "OFFICIAL",
@@ -38,11 +40,12 @@
     "type": "lighting",
     "typeLabel_zh": "光照",
     "typeLabel_en": "Lighting",
-    "title": "3D Exploration Game",
     "demoLink": "https://test.maytoo.games/wykzb",
     "codeLink": "https://aliyuncdn.antdv.com/common/docsearch.min_2.6.3.js",
     "qrLink": "https://example.com/demo1",
-    "detail": "吧啦吧啦吧啦"
+    "downloadLink": "https://example.com/demo1",
+    "detail_zh": "吧啦吧啦吧啦",
+    "detail_en": "balabalabala"
   },
   {
     "officialType": "UNOFFICIAL",
@@ -53,11 +56,12 @@
     "label_en": "Puzzle Game",
     "typeLabel_zh": "相机",
     "typeLabel_en": "camera",
-    "title": "3D Exploration Game",
     "demoLink": "http://gameview.creator-star.cn/wuhanmimeng/mergecar/index.html",
     "codeLink": "https://aliyuncdn.antdv.com/common/docsearch.min_2.6.3.js",
     "qrLink": "https://example.com/demo1",
-    "detail": "吧啦吧啦吧啦"
+    "downloadLink": "https://example.com/demo1",
+    "detail_zh": "吧啦吧啦吧啦",
+    "detail_en": "balabalabala"
   },
   {
     "officialType": "OFFICIAL",
@@ -68,10 +72,11 @@
     "type": "Camera",
     "typeLabel_zh": "相机",
     "typeLabel_en": "camera",
-    "title": "2D Platformer Example",
     "demoLink": "https://source.youletd.com/file/h5/dxcyxtgd/v201",
     "codeLink": "https://aliyuncdn.antdv.com/common/docsearch.min_2.6.3.js",
     "qrLink": "https://example.com/demo1",
-    "detail": "吧啦吧啦吧啦"
+    "downloadLink": "https://example.com/demo1",
+    "detail_zh": "吧啦吧啦吧啦",
+    "detail_en": "balabalabala"
   }
 ]

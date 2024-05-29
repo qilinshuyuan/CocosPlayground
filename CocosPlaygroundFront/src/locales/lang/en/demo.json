@@ -14,5 +14,9 @@
     "qrcode": "QR code",
     "viewCode": "View code",
     "downloadCode": "Download code"
+  },
+  "emptyInfo":{
+    "noCode": "No code to view",
+    "noSelect": "Please select on the left"
   }
 }

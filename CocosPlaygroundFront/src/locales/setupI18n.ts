@@ -8,7 +8,8 @@ import { LocaleType } from './helper';
 export let i18n: ReturnType<typeof createI18n>;
 
 async function createI18nOptions(): Promise<I18nOptions> {
-    const locale = LocaleType.zh_CN;
+    const localeStore = localStorage.getItem('locale')
+    const locale = localeStore || LocaleType.zh_CN;
     const defaultLocal = await import(`./lang/${locale}.ts`);
     const message = defaultLocal.default?.message ?? {};
 
